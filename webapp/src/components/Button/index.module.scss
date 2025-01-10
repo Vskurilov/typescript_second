@@ -2,7 +2,7 @@
 @use '../../styles/mixins' as *;
 
 .button {
-  padding: 8px 15 px;
+  padding: 8px 15px;
   color: $white;
   background-color: #0a980a;
   border: none;
@@ -10,9 +10,11 @@
   border-radius: $borderRaduisSmall;
   cursor: pointer;
   user-select: none;
+
   &:hover {
     background-color: #21b821;
   }
+
   &:active {
     background-color: #39d039;
   }

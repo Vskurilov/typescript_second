@@ -2,6 +2,8 @@ extends:
   # Расширяем базовые конфигурации ESLint
   - standard-with-typescript # Базовый набор правил для TypeScript от StandardJS
   - prettier # Интеграция Prettier для форматирования кода
+plugins:
+  - node
 ignorePatterns:
   - node_modules # Игнорируем папку node_modules
   - dist # Игнорируем папку dist (собранные файлы)
@@ -10,17 +12,17 @@ rules:
   'import/order':
     - error
     - groups:
-        - [builtin, external]    # Базовые и внешние модули
-        - internal                # Внутренние модули
-        - [sibling, parent]       # Импорты из соседних и родительских файлов
-        - index                   # Импорт из index файлов
+        - [builtin, external] # Базовые и внешние модули
+        - internal # Внутренние модули
+        - [sibling, parent] # Импорты из соседних и родительских файлов
+        - index # Импорт из index файлов
       alphabetize:
-        order: 'asc'              # Сортировать по алфавиту
-        caseInsensitive: true     # Игнорировать регистр при сортировке
+        order: 'asc' # Сортировать по алфавиту
+        caseInsensitive: true # Игнорировать регистр при сортировке
       pathGroups:
-        - pattern: 'react'        # Можно добавить специфичные группы для путей
+        - pattern: 'react' # Можно добавить специфичные группы для путей
           group: 'external'
-          position: 'before'      # Поставить перед другими внешними модулями
+          position: 'before' # Поставить перед другими внешними модулями
   # Обеспечение единообразного определения типов в TypeScript
   '@typescript-eslint/consistent-type-definitions':
     - error
@@ -66,3 +68,4 @@ rules:
         - info # Разрешен console.info
         - error # Разрешен console.error
         - warn # Разрешен console.warn
+  node/no-process-env: error
