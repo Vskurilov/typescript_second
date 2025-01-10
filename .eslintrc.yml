@@ -1,0 +1,68 @@
+extends:
+  # Расширяем базовые конфигурации ESLint
+  - standard-with-typescript # Базовый набор правил для TypeScript от StandardJS
+  - prettier # Интеграция Prettier для форматирования кода
+ignorePatterns:
+  - node_modules # Игнорируем папку node_modules
+  - dist # Игнорируем папку dist (собранные файлы)
+rules:
+  # Настройки порядка импорта
+  'import/order':
+    - error
+    - groups:
+        - [builtin, external]    # Базовые и внешние модули
+        - internal                # Внутренние модули
+        - [sibling, parent]       # Импорты из соседних и родительских файлов
+        - index                   # Импорт из index файлов
+      alphabetize:
+        order: 'asc'              # Сортировать по алфавиту
+        caseInsensitive: true     # Игнорировать регистр при сортировке
+      pathGroups:
+        - pattern: 'react'        # Можно добавить специфичные группы для путей
+          group: 'external'
+          position: 'before'      # Поставить перед другими внешними модулями
+  # Обеспечение единообразного определения типов в TypeScript
+  '@typescript-eslint/consistent-type-definitions':
+    - error
+    - type
+
+  # Отключение строгих булевых выражений
+  '@typescript-eslint/strict-boolean-expressions': off
+
+  # Отключение предпочтения оператора ?? (nullish coalescing)
+  '@typescript-eslint/prefer-nullish-coalescing': off
+
+  # Отключение необходимости явного указания возвращаемого типа функций
+  '@typescript-eslint/explicit-function-return-type': off
+
+  # Отключение ограничений на использование шаблонных строк
+  '@typescript-eslint/restrict-template-expressions': off
+
+  # Отключение трипл-слэш ссылок в TypeScript
+  '@typescript-eslint/triple-slash-reference': off
+
+  # Отключение запрета некоторых типов
+  '@typescript-eslint/ban-types': off
+
+  # Отключение требований к утверждениям типов
+  '@typescript-eslint/consistent-type-assertions': off
+
+  # Отключение правил доступности для якорных тегов (а)
+  jsx-a11y/anchor-is-valid: off
+
+  # Обязательное использование фигурных скобок во всех управляющих структурах
+  curly:
+    - error
+    - all
+  # Запрет на неровные пробелы (например, невидимые символы)
+  no-irregular-whitespace:
+    - error
+    - skipTemplates: true # Разрешить в шаблонных строках
+      skipStrings: true # Разрешить в строковых литералах
+  # Запрет на использование console, за исключением указанных методов
+  no-console:
+    - warn
+    - allow:
+        - info # Разрешен console.info
+        - error # Разрешен console.error
+        - warn # Разрешен console.warn

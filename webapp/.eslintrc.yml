@@ -1,0 +1,23 @@
+extends:
+  - react-app # Базовый набор правил для приложений на React
+  - ../.eslintrc.yml # Подключение дополнительных правил из общего конфигурационного файла .eslintrc.yml
+
+parserOptions:
+  project: ./tsconfig.app.json # Указываем основной файл конфигурации TypeScript
+
+overrides:
+  - files:
+      - vite.config.ts # Применяем отдельные правила для файла конфигурации Vite
+    parserOptions:
+      project: ./tsconfig.node.json # Для этих файлов используется другая конфигурация TypeScript
+
+rules:
+  '@typescript-eslint/no-restricted-imports':
+    - error
+    - patterns:
+        - group:
+            - '@ideanick/backend/**'
+            - '!@ideanick/backend/**/'
+            - '!@ideanick/backend/**/input'
+          allowTypeImports: true
+          message: 'Only types and input schemas are allowed to be imported from backend workspace'

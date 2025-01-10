@@ -1,0 +1,25 @@
+@use '../../styles/vars' as *;
+@use '../../styles/mixins' as *;
+
+.button {
+  padding: 8px 15 px;
+  color: $white;
+  background-color: #0a980a;
+  border: none;
+  font-weight: bold;
+  border-radius: $borderRaduisSmall;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    background-color: #21b821;
+  }
+  &:active {
+    background-color: #39d039;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: #929292;
+    color: #d9d9d9;
+  }
+}

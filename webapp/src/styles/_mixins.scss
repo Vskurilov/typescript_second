@@ -1,0 +1,22 @@
+@use './vars' as vars;
+@use '../../node_modules/include-media/dist/include-media';
+
+@mixin link($color: vars.$blue, $hoverColor: vars.$red) {
+  color: $color; // используем переданный аргумент
+  transition: color 200ms ease;
+
+  &:hover,
+  &:active {
+    color: $hoverColor; // используем переданный аргумент
+  }
+}
+
+@mixin h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+@mixin h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
