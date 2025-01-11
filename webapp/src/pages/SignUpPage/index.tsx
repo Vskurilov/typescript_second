@@ -1,10 +1,10 @@
+import { zSignUpTrpcInput } from '@ideanick/backend/src/router/signUp/input'
 import { useFormik } from 'formik'
 import { withZodSchema } from 'formik-validator-zod'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { zSighUpTrpcInput } from '../../../../backend/src/router/sighUp/input'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { FormItems } from '../../components/FormItems'
@@ -17,7 +17,7 @@ export const SignUpPage = () => {
   const navigate = useNavigate()
   const trpcUtils = trpc.useContext()
   const [submittingError, setSubmittingError] = useState<string | null>(null)
-  const signUp = trpc.sighUp.useMutation()
+  const signUp = trpc.signUp.useMutation()
   const formik = useFormik({
     initialValues: {
       nick: '',
@@ -25,7 +25,7 @@ export const SignUpPage = () => {
       passwordAgain: '',
     },
     validate: withZodSchema(
-      zSighUpTrpcInput
+      zSignUpTrpcInput
         .extend({
           passwordAgain: z.string().min(1),
         })

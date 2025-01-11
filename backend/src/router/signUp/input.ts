@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const zSighUpTrpcInput = z.object({
+export const zSignUpTrpcInput = z.object({
   nick: z
     .string()
     .min(1)
