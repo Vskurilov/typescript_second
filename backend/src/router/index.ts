@@ -14,7 +14,7 @@ export const trpcRouter = trpc.router({
   getIdea: getIdeaTrpcRoute,
   getIdeas: getIdeasTrpcRoute,
   getMe: getMeTrpcRoute,
-  signUp: signUpTrpcRoute, // Исправлено
+  signUp: signUpTrpcRoute,
   signIn: signInTrpcRoute,
   updateIdea: updateIdeaTrpcRoute,
 })

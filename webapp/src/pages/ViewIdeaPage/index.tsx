@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import css from './index.module.scss'
 import { LinkButton } from '../../components/Button'
 import { Segment } from '../../components/Segment'
+import { useMe } from '../../lib/ctx'
 import { getEditIdeaRoute, type ViewIdeaRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
@@ -12,9 +13,9 @@ export const ViewIdeaPage = () => {
   const getIdeaResult = trpc.getIdea.useQuery({
     ideaNick,
   })
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
 
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
     return <h1>Loading...</h1>
   }
 
@@ -22,16 +23,12 @@ export const ViewIdeaPage = () => {
     return <h1>Error: {getIdeaResult.error.message}</h1>
   }
 
-  if (getMeResult.isError) {
-    return <span>Erro: {getMeResult.error.message}</span>
-  }
-
   if (!getIdeaResult.data.idea) {
     return <span>Idea not found</span>
   }
 
   const idea = getIdeaResult.data.idea
-  const me = getMeResult.data.me
+
   return (
     <Segment title={idea.name} description={idea.description}>
       <div className={css.createdAt}>Created at {format(idea.createdAt, 'yyyy-MM-dd')} </div>
