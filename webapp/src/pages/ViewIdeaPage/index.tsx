@@ -3,32 +3,25 @@ import { useParams } from 'react-router-dom'
 import css from './index.module.scss'
 import { LinkButton } from '../../components/Button'
 import { Segment } from '../../components/Segment'
-import { useMe } from '../../lib/ctx'
+import { withPageWrapper } from '../../lib/pageWrapper'
 import { getEditIdeaRoute, type ViewIdeaRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
-export const ViewIdeaPage = () => {
-  const { ideaNick } = useParams() as ViewIdeaRouteParams
-
-  const getIdeaResult = trpc.getIdea.useQuery({
-    ideaNick,
-  })
-  const me = useMe()
-
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
-    return <h1>Loading...</h1>
-  }
-
-  if (getIdeaResult.isError) {
-    return <h1>Error: {getIdeaResult.error.message}</h1>
-  }
-
-  if (!getIdeaResult.data.idea) {
-    return <span>Idea not found</span>
-  }
-
-  const idea = getIdeaResult.data.idea
-
+export const ViewIdeaPage = withPageWrapper({
+  useQuery: () => {
+    const { ideaNick } = useParams() as ViewIdeaRouteParams
+    return trpc.getIdea.useQuery({
+      ideaNick,
+    })
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  checkExistsMessage: 'Idea not found',
+  setProps: ({ queryResult, ctx }) => ({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    idea: queryResult.data.idea!,
+    me: ctx.me,
+  }),
+})(({ idea, me }) => {
   return (
     <Segment title={idea.name} description={idea.description}>
       <div className={css.createdAt}>Created at {format(idea.createdAt, 'yyyy-MM-dd')} </div>
@@ -41,4 +34,4 @@ export const ViewIdeaPage = () => {
       )}
     </Segment>
   )
-}
+})
