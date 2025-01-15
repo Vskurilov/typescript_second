@@ -2,7 +2,7 @@ import { zUpdateProfileInput } from './input'
 import { toClientMe } from '../../../lib/models'
 import { trpc } from '../../../lib/trpc'
 
-export const UpdateProfileTrpcRoute = trpc.procedure.input(zUpdateProfileInput).mutation(async ({ ctx, input }) => {
+export const updateProfileTrpcRoute = trpc.procedure.input(zUpdateProfileInput).mutation(async ({ ctx, input }) => {
   if (!ctx.me) {
     throw new Error('UNAUTHORIZED')
   }
