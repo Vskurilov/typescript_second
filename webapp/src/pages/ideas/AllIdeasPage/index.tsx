@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import css from './index.module.scss'
 import { Alert } from '../../../components/Alert'
 import { layoutContentElRef } from '../../../components/Layout'
+import { Loader } from '../../../components/Loader'
 import { Segment } from '../../../components/Segment'
 import { getViewIdeaRoute } from '../../../lib/routes'
 import * as trpc from '../../../lib/trpc'
@@ -24,7 +25,7 @@ export const AllIdeasPage = () => {
     <div>
       <Segment title="All ideas">
         {isLoading || isRefetching ? (
-          <div>Loading...</div>
+          <Loader type="section" />
         ) : isError ? (
           <Alert color="red">{error.message}</Alert>
         ) : (
@@ -39,7 +40,7 @@ export const AllIdeasPage = () => {
               hasMore={hasNextPage}
               loader={
                 <div className={css.more} key="loader">
-                  Loading...
+                  <Loader type="section" />
                 </div>
               }
               getScrollParent={() => layoutContentElRef.current}

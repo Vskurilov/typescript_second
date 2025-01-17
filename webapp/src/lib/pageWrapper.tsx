@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppContext, type AppContext } from './ctx'
 import { getAllIdeasRoute } from './routes'
 import { ErrorPageComponent } from '../components/ErrorPageComponent'
+import { Loader } from '../components/Loader'
 import { NotFoundPage } from '../pages/other/NotFoundPage'
 
 class CheckExistsError extends Error {}
@@ -88,7 +89,7 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   }, [redirectNeeded, navigate])
 
   if (queryResult?.isLoading || queryResult?.isFetching || redirectNeeded) {
-    return <p>Loading...</p>
+    return <Loader type="page" />
   }
 
   if (queryResult?.isError) {
