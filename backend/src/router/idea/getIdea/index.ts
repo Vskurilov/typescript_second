@@ -37,15 +37,8 @@ export const getIdeaTrpcRoute = trpc.procedure
       },
     })
 
-    const isLikedByMe = rawIdea?.ideasLikes && rawIdea.ideasLikes.length > 0
-    const likesCount = rawIdea?._count?.ideasLikes ?? 0
-    const idea = rawIdea
-      ? {
-          ..._.omit(rawIdea, ['ideasLikes', '_count']),
-          isLikedByMe,
-          likesCount,
-        }
-      : null
-
+    const isLikedByMe = !!rawIdea?.ideasLikes.length
+    const likesCount = rawIdea?._count.ideasLikes || 0
+    const idea = rawIdea && { ..._.omit(rawIdea, ['ideasLikes', '_count']), isLikedByMe, likesCount }
     return { idea }
   })
