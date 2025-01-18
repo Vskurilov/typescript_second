@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { zGetIdeasTrpcInput } from './input'
 import { trpc } from '../../../lib/trpc'
 export const getIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).query(async ({ ctx, input }) => {
+  const normalizedSerch = input.search ? input.search.trim().replace(/[\s\n\t]/g, '&') : undefined
   const rawIdeas = await ctx.prisma.idea.findMany({
     select: {
       id: true,
@@ -9,13 +10,33 @@ export const getIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).query(
       name: true,
       description: true,
       serialNumber: true,
-
       _count: {
         select: {
           ideasLikes: true,
         },
       },
     },
+    where: !input.search
+      ? undefined
+      : {
+          OR: [
+            {
+              name: {
+                search: normalizedSerch,
+              },
+            },
+            {
+              description: {
+                search: normalizedSerch,
+              },
+            },
+            {
+              text: {
+                search: normalizedSerch,
+              },
+            },
+          ],
+        },
     orderBy: [
       {
         createdAt: 'desc',
