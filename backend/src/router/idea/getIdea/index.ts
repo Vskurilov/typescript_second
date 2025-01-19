@@ -36,6 +36,9 @@ export const getIdeaTrpcRoute = trpc.procedure
         },
       },
     })
+    if (rawIdea?.blockedAt) {
+      throw new Error('idea is blocked by admistrator')
+    }
 
     const isLikedByMe = !!rawIdea?.ideasLikes.length
     const likesCount = rawIdea?._count.ideasLikes || 0
