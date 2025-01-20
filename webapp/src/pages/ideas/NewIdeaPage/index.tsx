@@ -1,4 +1,5 @@
 import { zCreateIdeaTrpcInput } from '@ideanick/backend/src/router/idea/createIdea/input'
+
 import { Alert } from '../../../components/Alert'
 import { Button } from '../../../components/Button'
 import { FormItems } from '../../../components/FormItems'
@@ -11,6 +12,7 @@ import { trpc } from '../../../lib/trpc'
 
 export const NewIdeaPage = withPageWrapper({
   authorizedOnly: true,
+  title: 'New idea',
 })(() => {
   const createIdea = trpc.createIdea.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
