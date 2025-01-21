@@ -13,4 +13,3 @@ export const NotFoundPage = ({
     <img src={image404} className={css.image} alt="" width="800" height="600" />
   </ErrorPageComponent>
 )
-// console.log(image404)
